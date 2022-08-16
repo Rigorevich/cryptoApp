@@ -6,18 +6,18 @@ const useAxios = ({ url }) => {
   const [error, setError] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(true);
 
-  async function fetchData() {
-    try {
-      const result = await axios.get(url);
-      setResponse(result.data);
-    } catch (error) {
-      setError(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
   React.useEffect(() => {
+    async function fetchData() {
+      try {
+        const result = await axios.get(url);
+        setResponse(result.data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
     fetchData();
   }, [url]);
 
