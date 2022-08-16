@@ -66,6 +66,7 @@ export const todayDate = function () {
     case 12:
       month = "December";
       break;
+    default:
   }
 
   return `${day} ${month} ${year}`;
