@@ -1,0 +1,52 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px 70px;
+  box-shadow: rgb(0 0 0 / 40%) 0 2px 15px -3px !important;
+
+  .crypto {
+    display: flex;
+
+    .crypto__item {
+      margin-right: 15px;
+      display: flex;
+      align-items: center;
+
+      .crypto__link {
+        display: flex;
+        align-items: center;
+
+        .crypto__border {
+          border: 2px solid #dbdbdb;
+          padding: 5px;
+          margin-left: 5px;
+          border-radius: 5px;
+
+          span {
+            margin: 2px;
+          }
+        }
+      }
+    }
+  }
+
+  .briefcase {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    .briefcase__logo {
+      margin-right: 10px;
+    }
+
+    .briefcase__info {
+
+      span {
+        color: rgb(24, 198, 131);
+      }
+    }
+  }
+}

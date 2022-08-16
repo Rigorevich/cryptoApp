@@ -1,0 +1,143 @@
+.table {
+  max-width: 100%;
+  box-shadow: rgb(0 0 0 / 40%) 0 2px 15px -3px !important;
+  margin: 20px 0;
+  border-radius: 8px;
+  background: #ffffff;
+
+  .table__header {
+    .header__row {
+      display: grid;
+      grid-template-columns:
+        minmax(80px, 1fr)
+        minmax(300px, 2fr)
+        minmax(120px, 1fr)
+        minmax(110px, 1fr)
+        minmax(125px, 1fr)
+        minmax(100px, 1fr)
+        minmax(130px, 1fr)
+        minmax(130px, 1fr)
+        minmax(60px, 1fr);
+      text-align: right;
+      padding: 2px;
+      background-color: #FAFAFA;
+
+
+      .header__col:first-child {
+        text-align: center;
+      }
+
+      .header__col:nth-child(2) {
+        text-align: left;
+      }
+
+      .header__col:last-child {
+        padding-right: 10px;
+      }
+
+      .header__col {
+        font-size: 13px;
+        padding: 12px;
+      }
+    }
+  }
+
+  .table__body {
+    .body__row {
+      .body__link {
+        display: grid;
+        align-items: center;
+
+        grid-template-columns:
+        minmax(80px, 1fr)
+        minmax(300px, 2fr)
+        minmax(120px, 1fr)
+        minmax(110px, 1fr)
+        minmax(125px, 1fr)
+        minmax(100px, 1fr)
+        minmax(130px, 1fr)
+        minmax(130px, 1fr)
+        minmax(60px, 1fr);
+
+        &:hover {
+          background: rgba(0,0,0,.1);
+        }
+
+        .body__col:first-child {
+          text-align: center;
+        }
+
+        .body__col:nth-child(2) {
+          display: flex;
+          align-items: center;
+          text-align: left;
+
+          img {
+            margin-right: 5px;
+          }
+
+          p {
+            opacity: 0.5;
+            font-size: 0.7em;
+            margin-top: 4px;
+          }
+        }
+
+        .body__col:last-child {
+          padding-right: 20px;
+        }
+
+        .body__col {
+          padding: 17px 12px;
+          text-align: right;
+        }
+        .col__btn {
+          transition: opacity 0.6s ease-in-out;
+
+          &:hover {
+            animation: spin 1.5s linear;
+          }
+
+          &:active {
+            opacity: 0.2;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.pagination {
+  text-align: center;
+  padding: 30px;
+  .text {
+    padding-bottom: 5px;
+  }
+  .next, .prev {
+    border: 1px solid #dbdbdb;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 4px;
+    padding: 8px;
+    width: 20px;
+    height: 20px;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: rgba(0,0,0,0.1);
+    }
+  }
+  .prev {
+    transform: rotate(180deg);
+  }
+
+}
+@keyframes spin {
+  from {transform:rotate(0deg);}
+  to {transform:rotate(180deg);}
+}
+
+
+
+
