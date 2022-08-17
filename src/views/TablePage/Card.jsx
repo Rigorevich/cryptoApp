@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./TablePage.module.scss";
+import "./TablePage.scss";
 import { Link } from "react-router-dom";
 import { Price } from "../../store/Price";
 import { abbreviateNumber, fixedNumber } from "../../utils/utils";
@@ -15,14 +15,10 @@ const Card = ({ onClickButton, item, onClickCard }) => {
   }
 
   return (
-    <div className={styles.body__row} onClick={onCard}>
-      <Link
-        to={`/coins/${item.id}`}
-        className={styles.body__link}
-        onClick={onCard}
-      >
-        <div className={styles.body__col}>{item.rank}</div>
-        <div className={styles.body__col}>
+    <div className="body__row" onClick={onCard}>
+      <Link to={`/coins/${item.id}`} className="body__link" onClick={onCard}>
+        <div className="body__col">{item.rank}</div>
+        <div className="body__col">
           <img
             height={30}
             width={30}
@@ -34,19 +30,15 @@ const Card = ({ onClickButton, item, onClickCard }) => {
             <p>{item.symbol}</p>
           </div>
         </div>
-        <div className={styles.body__col}>
+        <div className="body__col">
           $<Price id={item.id} fix={5} />
         </div>
-        <div className={styles.body__col}>
-          ${abbreviateNumber(item.marketCapUsd)}
-        </div>
-        <div className={styles.body__col}>${fixedNumber(item.vwap24Hr, 3)}</div>
-        <div className={styles.body__col}>{abbreviateNumber(item.supply)}</div>
-        <div className={styles.body__col}>
-          ${abbreviateNumber(item.volumeUsd24Hr)}
-        </div>
+        <div className="body__col">${abbreviateNumber(item.marketCapUsd)}</div>
+        <div className="body__col">${fixedNumber(item.vwap24Hr, 3)}</div>
+        <div className="body__col">{abbreviateNumber(item.supply)}</div>
+        <div className="body__col">${abbreviateNumber(item.volumeUsd24Hr)}</div>
         <div
-          className={styles.body__col}
+          className="body__col"
           style={{
             color: `${
               Number(item.changePercent24Hr) <= 0
@@ -57,11 +49,11 @@ const Card = ({ onClickButton, item, onClickCard }) => {
         >
           {fixedNumber(item.changePercent24Hr, 2)}%
         </div>
-        <div className={styles.body__col}>
+        <div className="body__col">
           <img
             src="/img/plus.svg"
             alt="Plus"
-            className={styles.col__btn}
+            className="col__btn"
             onClick={onBtn}
           />
         </div>

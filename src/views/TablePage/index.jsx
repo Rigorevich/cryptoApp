@@ -1,46 +1,49 @@
 import React from "react";
-import styles from "./TablePage.module.scss";
+import "./TablePage.scss";
 import usePagination from "../../hooks/usePagination";
 import HeaderTable from "./HeaderTable";
 import Card from "./Card";
 
-const Table = ({ onClickButton, items, onClickCard }) => {
-  const { next, prev, pagination, TOTAL } = usePagination({});
-  const totalPage = Math.floor(TOTAL / 10) + 1;
-  const currentPage = pagination.currentPage + 1;
+const contentPerPage = 20;
+
+const Table = ({ items, onClickCard }) => {
+  const {
+    firstContentIndex,
+    lastContentIndex,
+    nextPage,
+    prevPage,
+    page,
+    totalPages,
+  } = usePagination({
+    contentPerPage,
+    count: items.length,
+  });
 
   return (
-    <div className={styles.table}>
-      <div className={styles.table__header}>
+    <div className="table">
+      <div className="table__header">
         <HeaderTable />
       </div>
-      <div className={styles.table__body}>
-        {items.map((item) => {
-          return (
-            <Card
-              onClickButton={onClickButton}
-              item={item}
-              key={item.id}
-              onClickCard={onClickCard}
-            />
-          );
+      <div className="table__body">
+        {items.slice(firstContentIndex, lastContentIndex).map((item) => {
+          return <Card item={item} key={item.id} onClickCard={onClickCard} />;
         })}
       </div>
-      <div className={styles.pagination}>
-        <p className={styles.text}>
-          {currentPage}/{totalPage}
+      <div className="pagination">
+        <p className="text">
+          {page}/{totalPages}
         </p>
         <img
-          onClick={prev}
+          onClick={prevPage}
           src="/img/arrow.png"
           alt="arrow"
-          className={styles.prev}
+          className="prev"
         />
         <img
-          onClick={next}
+          onClick={nextPage}
           src="/img/arrow.png"
           alt="arrow"
-          className={styles.next}
+          className="next"
         />
       </div>
     </div>

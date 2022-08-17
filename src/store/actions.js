@@ -1,18 +1,17 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const fetchAssets = createAsyncThunk(
-  "assets/fetch",
-  async ({ limit, offset }) => {
-    const url = new URL("https://api.coincap.io/v2/assets");
-    url.searchParams.set("limit", limit);
-    url.searchParams.set("offset", offset);
+const ASSETS_URL = "https://api.coincap.io/v2/assets";
 
-    const response = await fetch(url.toString());
+export const fetchAssets = createAsyncThunk("assets/fetch", async () => {
+  const url = new URL(ASSETS_URL);
+  // url.searchParams.set("limit", limit);
+  // url.searchParams.set("offset", offset);
 
-    const { data } = await response.json();
+  const response = await fetch(url.toString());
 
-    return data;
-  }
-);
+  const { data } = await response.json();
+
+  return data;
+});
 
 export const updatePrices = createAction("assets/updatePrices");

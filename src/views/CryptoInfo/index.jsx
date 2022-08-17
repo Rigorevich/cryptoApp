@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./CryptoInfo.module.scss";
+import "./CryptoInfo.scss";
 import useAxios from "../../hooks/useAxios";
 import { Link } from "react-router-dom";
 import {
@@ -11,7 +11,7 @@ import {
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 
-const CryptoInfo = ({ item, onClickButton }) => {
+const CryptoInfo = ({ item }) => {
   const [cryptoHistory, error, isLoading] = useAxios({
       url: `https://api.coincap.io/v2/assets/${item.id}/history?interval=h1`,
     }),
@@ -21,37 +21,35 @@ const CryptoInfo = ({ item, onClickButton }) => {
       prices.push(obj.priceUsd);
     });
   }
-  console.log(prices, isLoading);
+
   return (
-    <div className={styles.crypto}>
-      <div className={styles.crypto__info}>
+    <div className="crypto_coin">
+      <div className="crypto__info">
         <img
           src={`https://assets.coincap.io/assets/icons/${item.symbol.toLowerCase()}@2x.png`}
           alt="Logo"
-          className={styles.info__logo}
+          className="info__logo"
         />
-        <div className={styles.info__progress}>
-          <h3 className={styles.progress__title}>
+        <div className="info__progress">
+          <h3 className="progress__title">
             {item.name} ({item.symbol})
           </h3>
-          <span className={styles.progress__date}>{todayDate()}</span>
+          <span className="progress__date">{todayDate()}</span>
         </div>
-        <div className={styles.info__prices}>
-          <div className={styles.prices__high_low}>
-            <span className={styles.prices__high}>
+        <div className="info__prices">
+          <div className="prices__high_low">
+            <span className="prices__high">
               MARKET CUP: ${abbreviateNumber(item.marketCapUsd)}
             </span>
-            <span className={styles.prices__low}>
-              VWAP(24hr): ${item.vwap24Hr}
-            </span>
+            <span className="prices__low">VWAP(24hr): ${item.vwap24Hr}</span>
           </div>
         </div>
-        <div className={styles.info__prices}>
-          <div className={styles.prices__change_average}>
-            <span className={styles.prices__average}>
+        <div className="info__prices">
+          <div className="prices__change_average">
+            <span className="prices__average">
               SUPPLY: ${abbreviateNumber(item.supply)}
             </span>
-            <span className={styles.prices__change}>
+            <span className="prices__change">
               CHANGE: ${fixedNumber(item.changePercent24Hr, 2)}%
             </span>
           </div>
@@ -60,7 +58,7 @@ const CryptoInfo = ({ item, onClickButton }) => {
       {isLoading ? (
         <></>
       ) : (
-        <div className={styles.crypto__chart}>
+        <div className="crypto__chart">
           <Line
             data={{
               labels: labels,
@@ -77,13 +75,11 @@ const CryptoInfo = ({ item, onClickButton }) => {
           />
         </div>
       )}
-      <Link to="/" className={styles.button__back}>
-        <button className={styles.back}>Вернуться назад</button>
+      <Link to="/" className="button__back">
+        <button className="back">Вернуться назад</button>
       </Link>
-      <div className={styles.button__add}>
-        <button className={styles.add} onClick={onClickButton}>
-          Добавить в кошелёк
-        </button>
+      <div className="button__add">
+        <button className="add">Добавить в кошелёк</button>
       </div>
     </div>
   );

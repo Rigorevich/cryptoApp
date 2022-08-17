@@ -50,3 +50,31 @@
     }
   }
 }
+
+@media screen and (max-width: 880px) {
+  .crypto__logo {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .crypto__price {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .header {
+    justify-content: center;
+
+    .crypto {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .briefcase {
+    flex-direction: column;
+  }
+}

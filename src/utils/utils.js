@@ -27,47 +27,21 @@ export const todayDate = function () {
     day = String(today.getDate()).padStart(2, "0"),
     year = today.getFullYear();
   let month = String(today.getMonth() + 1).padStart(2, "0");
-  month = Number(month);
-
-  switch (month) {
-    case 1:
-      month = "January";
-      break;
-    case 2:
-      month = "February";
-      break;
-    case 3:
-      month = "March";
-      break;
-    case 4:
-      month = "April";
-      break;
-    case 5:
-      month = "May";
-      break;
-    case 6:
-      month = "June";
-      break;
-    case 7:
-      month = "July";
-      break;
-    case 8:
-      month = "August";
-      break;
-    case 9:
-      month = "September";
-      break;
-    case 10:
-      month = "October";
-      break;
-    case 11:
-      month = "November";
-      break;
-    case 12:
-      month = "December";
-      break;
-    default:
-  }
+  const monthWord = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  month = monthWord[Number(month) - 1];
 
   return `${day} ${month} ${year}`;
 };
