@@ -17,6 +17,10 @@ const ModalBriefcase = ({
     }
   };
 
+  function onCross(item) {
+    onClickCross(item);
+  }
+
   React.useEffect(() => {
     document.addEventListener("keydown", keydownHandler);
     return () => document.removeEventListener("keydown", keydownHandler);
@@ -55,7 +59,7 @@ const ModalBriefcase = ({
                     height={20}
                     alt="Cross"
                     className="modal__delete"
-                    onClick={onClickCross}
+                    onClick={() => onCross(item)}
                   />
                 </div>
               );

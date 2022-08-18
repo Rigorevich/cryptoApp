@@ -15,6 +15,7 @@
     .info__logo {
       width: 80px;
       height: auto;
+      margin-right: 8px;
     }
 
     .info__progress {
@@ -94,3 +95,41 @@
     }
   }
 }
+
+@media (max-width: 730px) {
+  .crypto_coin .crypto__info .info__prices {
+    display: none;
+  }
+
+  .crypto_coin .crypto__info {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 800px) {
+  .crypto_coin .crypto__chart {
+    padding: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .back, .add {
+    margin-top: 20px;
+    padding: 15px 30px;
+    background: #9dd558;
+    border-radius: 18px;
+    border: 0;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.1s ease-in-out;
+  }
+}
+
+
+
+

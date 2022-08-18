@@ -71,7 +71,7 @@
   display: grid;
   align-items: center;
   grid-template-columns: 1fr 2fr 1fr 1fr;
-  text-align: center;
+  text-align: left;
   padding: 10px 20px;
   margin-bottom: 10px;
   border: 1px solid #bebebe;
@@ -144,5 +144,27 @@
   }
   to {
     transform: translateY(0);
+  }
+}
+
+@media (max-width: 570px) {
+  .modal__market {
+    display: none;
+  }
+}
+
+@media (max-width: 460px) {
+  .modal__card {
+    grid-template-columns: 1fr 2fr 1fr;
+    text-align: center;
+    .modal__price {
+      display: none;
+    }
+  }
+
+  .modal__data {
+    .modal__button {
+      padding: 10px 20px;
+    }
   }
 }

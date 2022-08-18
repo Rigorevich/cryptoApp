@@ -33,6 +33,7 @@ function App() {
         items={items.slice(0, 3)}
         onClickCross={deleteCard}
         briefCase={briefCase}
+        setBriefCase={setBriefCase}
       />
       <Route path="/" exact>
         <Table

@@ -1,10 +1,31 @@
 import React, { useState } from "react";
 import "./Header.scss";
 import { Price } from "../../store/Price";
+import { fixedNumber } from "../../utils/utils";
 import ModalBriefcase from "../Modals/ModalBriefcase";
+import { useSelector } from "react-redux";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
-const Header = ({ items = [], onClickCross, briefCase }) => {
+const Header = ({ items = [], onClickCross, briefCase, setBriefCase }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [pastPrice, setPastPrice] = useLocalStorage("pastPrice", sumOfPrices());
+  const prices = useSelector((state) => state.assets.prices);
+
+  // React.useEffect(() => {
+  //   setBriefCase((prev) =>
+  //     [...prev].map((item) =>
+  //       prices[item.id] ? { ...item, priceUsd: prices[item.id] } : item
+  //     )
+  //   );
+  // });
+
+  function sumOfPrices() {
+    return fixedNumber(
+      briefCase.reduce((acc, el) => acc + Number(el.priceUsd), 0),
+      4
+    );
+  }
+
   return (
     <>
       <header className="header">
@@ -22,8 +43,9 @@ const Header = ({ items = [], onClickCross, briefCase }) => {
             className="briefcase__logo"
           />
           <p className="briefcase__info">
-            123,123 USD
-            <span> +2,38 (1,80 %)</span>
+            <span className="briefcase__price">{} USD</span>
+            <span className="briefcase__difference">$</span>
+            <span className="briefcase__change">(1,80 %)</span>
           </p>
         </div>
       </header>

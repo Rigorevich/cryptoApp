@@ -43,9 +43,8 @@
     }
 
     .briefcase__info {
-
       span {
-        color: rgb(24, 198, 131);
+        margin-right: 5px;
       }
     }
   }
@@ -66,9 +65,9 @@
 @media screen and (max-width: 600px) {
   .header {
     justify-content: center;
-
-    .crypto {
-      display: none;
+    flex-direction: column-reverse;
+    .briefcase {
+      margin-bottom: 8px;
     }
   }
 }
