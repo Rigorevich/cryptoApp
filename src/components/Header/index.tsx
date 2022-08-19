@@ -5,6 +5,7 @@ import ModalBriefcase from "../Modals/ModalBriefcase";
 import { growth } from "../../utils/utils";
 import { Asset } from "../../models";
 import { useAppSelector } from "../../store";
+import { Link } from "react-router-dom";
 
 const Header = ({
   items,
@@ -90,7 +91,7 @@ const Header = ({
 const TopCrypto = ({ item }: { item: Asset }) => {
   return (
     <li className="crypto__item">
-      <a href="/" className="crypto__link">
+      <a href="#" className="crypto__link">
         <img
           height={30}
           width={30}

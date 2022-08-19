@@ -2,8 +2,19 @@ import React from "react";
 import "./Modals.scss";
 import { abbreviateNumber } from "../../utils/utils";
 import { Price } from "../Price";
+import { Asset } from "../../models";
 
-const ModalAdd = ({ item, isOpen = false, onClose, onClickButton }) => {
+const ModalAdd = ({
+  item,
+  isOpen = false,
+  onClose,
+  onClickButton,
+}: {
+  item: Asset;
+  isOpen: boolean;
+  onClose: Function;
+  onClickButton: Function;
+}) => {
   const [value, setValue] = React.useState("");
 
   function onBtn() {
@@ -13,7 +24,7 @@ const ModalAdd = ({ item, isOpen = false, onClose, onClickButton }) => {
     }
   }
 
-  const keydownHandler = ({ key }) => {
+  const keydownHandler = ({ key }: { key: string }) => {
     switch (key) {
       case "Escape":
         onClose();
@@ -28,11 +39,11 @@ const ModalAdd = ({ item, isOpen = false, onClose, onClickButton }) => {
   });
 
   return !isOpen ? null : (
-    <div className="modal" onClick={onClose}>
+    <div className="modal" onClick={() => onClose()}>
       <div className="modal_dialog" onClick={(e) => e.stopPropagation()}>
         <div className="modal_header">
           <h3 className="modal_title">{item.name}</h3>
-          <span className="modal_close" onClick={onClose}>
+          <span className="modal_close" onClick={() => onClose()}>
             &times;
           </span>
         </div>
@@ -50,7 +61,7 @@ const ModalAdd = ({ item, isOpen = false, onClose, onClickButton }) => {
                 Market Cup: ${abbreviateNumber(Number(item.marketCapUsd))}
               </span>
               <span className="modal__price">
-                Price: $<Price id={item.id} fix={5} />
+                Price: $<Price id={item.id} />
               </span>
             </div>
             <div className="modal__data">
