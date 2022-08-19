@@ -1,7 +1,7 @@
 import React from "react";
 import "./Modals.scss";
 import { abbreviateNumber } from "../../utils/utils";
-import { Price } from "../../store/Price";
+import { Price } from "../Price";
 
 const ModalAdd = ({ item, isOpen = false, onClose, onClickButton }) => {
   const [value, setValue] = React.useState("");
@@ -47,7 +47,7 @@ const ModalAdd = ({ item, isOpen = false, onClose, onClickButton }) => {
                 className="modal__logo"
               />
               <span className="modal__market">
-                Market Cup: ${abbreviateNumber(item.marketCapUsd)}
+                Market Cup: ${abbreviateNumber(Number(item.marketCapUsd))}
               </span>
               <span className="modal__price">
                 Price: $<Price id={item.id} fix={5} />

@@ -1,14 +1,23 @@
 import React from "react";
 import "./TablePage.scss";
 import { Link } from "react-router-dom";
-import { Price } from "../../../store/Price";
+import { Price } from "../../Price";
 import { abbreviateNumber, fixedNumber } from "../../../utils/utils";
 import ModalAdd from "../../Modals/ModalAdd";
+import { Asset } from "../../../models";
 
-const Card = ({ item, onClickCard, onClickButton }) => {
+const Card = ({
+  item,
+  onClickCard,
+  onClickButton,
+}: {
+  item: Asset;
+  onClickCard: Function;
+  onClickButton: Function;
+}) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
-  function onBtn(event) {
+  function onBtn(event: { preventDefault: () => void }) {
     event.preventDefault();
     setIsOpen(true);
   }
@@ -35,15 +44,17 @@ const Card = ({ item, onClickCard, onClickButton }) => {
             </div>
           </div>
           <div className="body__col">
-            $<Price id={item.id} fix={5} />
+            $<Price id={item.id} />
           </div>
           <div className="body__col">
-            ${abbreviateNumber(item.marketCapUsd)}
+            ${abbreviateNumber(Number(item.marketCapUsd))}
           </div>
           <div className="body__col">${fixedNumber(item.vwap24Hr, 3)}</div>
-          <div className="body__col">{abbreviateNumber(item.supply)}</div>
           <div className="body__col">
-            ${abbreviateNumber(item.volumeUsd24Hr)}
+            {abbreviateNumber(Number(item.supply))}
+          </div>
+          <div className="body__col">
+            ${abbreviateNumber(Number(item.volumeUsd24Hr))}
           </div>
           <div
             className="body__col"

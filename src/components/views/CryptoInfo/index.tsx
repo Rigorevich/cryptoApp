@@ -3,23 +3,32 @@ import "./CryptoInfo.scss";
 import useAxios from "../../../hooks/useAxios";
 import { Link } from "react-router-dom";
 import {
-  todayDate,
-  labels,
   abbreviateNumber,
   fixedNumber,
+  labels,
+  todayDate,
 } from "../../../utils/utils";
 import { Line } from "react-chartjs-2";
-import Chart from "chart.js/auto";
 import ModalAdd from "../../Modals/ModalAdd";
+import { Asset } from "../../../models";
+import { Chart, registerables } from "chart.js";
 
-const CryptoInfo = ({ item, onClickButton }) => {
+Chart.register(...registerables);
+
+const CryptoInfo = ({
+  item,
+  onClickButton,
+}: {
+  item: Asset;
+  onClickButton: Function;
+}) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [cryptoHistory, isLoading] = useAxios({
+  const { response: cryptoHistory, isLoading } = useAxios({
       url: `https://api.coincap.io/v2/assets/${item.id}/history?interval=h1`,
     }),
-    prices = [];
-  if (!isLoading) {
-    cryptoHistory.data.slice(0, 26).forEach((obj) => {
+    prices: Array<string> = [];
+  if (!isLoading && cryptoHistory) {
+    cryptoHistory.data.slice(0, 26).forEach((obj: { priceUsd: string }) => {
       prices.push(obj.priceUsd);
     });
   }
@@ -42,7 +51,7 @@ const CryptoInfo = ({ item, onClickButton }) => {
           <div className="info__prices">
             <div className="prices__high_low">
               <span className="prices__high">
-                MARKET CUP: ${abbreviateNumber(item.marketCapUsd)}
+                MARKET CUP: ${abbreviateNumber(Number(item.marketCapUsd))}
               </span>
               <span className="prices__low">
                 VWAP(24hr): ${fixedNumber(item.vwap24Hr, 3)}
@@ -52,7 +61,7 @@ const CryptoInfo = ({ item, onClickButton }) => {
           <div className="info__prices">
             <div className="prices__change_average">
               <span className="prices__average">
-                SUPPLY: ${abbreviateNumber(item.supply)}
+                SUPPLY: ${abbreviateNumber(Number(item.supply))}
               </span>
               <span className="prices__change">
                 CHANGE: ${fixedNumber(item.changePercent24Hr, 2)}%

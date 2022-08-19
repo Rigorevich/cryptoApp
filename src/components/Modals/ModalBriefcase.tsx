@@ -1,14 +1,20 @@
 import React from "react";
 import "./Modals.scss";
-import { Price } from "../../store/Price";
+import { Price } from "../Price";
+import { Asset } from "../../models";
 
 const ModalBriefcase = ({
   isOpen = false,
   onClose,
   onClickCross,
   briefCase,
+}: {
+  isOpen: boolean;
+  onClose: Function;
+  onClickCross: Function;
+  briefCase: Asset[];
 }) => {
-  const keydownHandler = ({ key }) => {
+  const keydownHandler = ({ key }: { key: string }) => {
     switch (key) {
       case "Escape":
         onClose();
@@ -17,7 +23,7 @@ const ModalBriefcase = ({
     }
   };
 
-  function onCross(item) {
+  function onCross(item: Asset) {
     onClickCross(item);
   }
 
@@ -27,11 +33,11 @@ const ModalBriefcase = ({
   });
 
   return !isOpen ? null : (
-    <div className="modal" onClick={onClose}>
+    <div className="modal" onClick={() => onClose()}>
       <div className="modal_dialog" onClick={(e) => e.stopPropagation()}>
         <div className="modal_header">
           <h3 className="modal_title">Briefcase</h3>
-          <span className="modal_close" onClick={onClose}>
+          <span className="modal_close" onClick={() => onClose()}>
             &times;
           </span>
         </div>
@@ -48,7 +54,7 @@ const ModalBriefcase = ({
                     className="modal__logo"
                   />
                   <span className="modal__price">
-                    $<Price id={item.id} fix={5} />
+                    $<Price id={item.id} />
                   </span>
                   <span className="modal__number">
                     {item.value} {item.symbol}

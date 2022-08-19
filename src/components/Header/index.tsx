@@ -1,22 +1,31 @@
 import React, { useState } from "react";
 import "./Header.scss";
-import { Price } from "../../store/Price";
+import { Price } from "../Price";
 import ModalBriefcase from "../Modals/ModalBriefcase";
-import { useSelector } from "react-redux";
 import { growth } from "../../utils/utils";
+import { Asset } from "../../models";
+import { useAppSelector } from "../../store";
 
-const Header = ({ items = [], onClickCross, briefCase }) => {
-  const prices = useSelector((state) => state.assets.prices);
+const Header = ({
+  items,
+  onClickCross,
+  briefCase,
+}: {
+  items: Asset[];
+  onClickCross: Function;
+  briefCase: Asset[];
+}) => {
+  const prices = useAppSelector((state) => state.assets.prices);
   const [isOpen, setIsOpen] = useState(false);
-  const [priceThen, setPriceThen] = useState(
+  const [priceThen, setPriceThen] = useState<number>(
     briefCase.reduce((acc, item) => acc + Number(item.priceUsd), 0)
   );
-  const [priceNow, setPriceNow] = useState(priceThen);
+  const [priceNow, setPriceNow] = useState<number>(priceThen);
 
   React.useEffect(() => {
     setPriceNow(
       briefCase.reduce(
-        (acc, item) => acc + Number(prices[item.id] * item.value),
+        (acc, item) => acc + Number(prices[item.id] * Number(item.value)),
         0
       )
     );
@@ -25,7 +34,7 @@ const Header = ({ items = [], onClickCross, briefCase }) => {
   React.useEffect(() => {
     setPriceThen(
       briefCase.reduce(
-        (acc, item) => acc + Number(item.priceUsd * item.value),
+        (acc, item) => acc + Number(item.priceUsd) * Number(item.value),
         0
       )
     );
@@ -47,7 +56,7 @@ const Header = ({ items = [], onClickCross, briefCase }) => {
             alt="Briefcase"
             className="briefcase__logo"
           />
-          <p className="briefcase__info">
+          <div className="briefcase__info">
             <span className="briefcase__price">{priceNow.toFixed(3)} USD</span>
             <span
               className="briefcase__difference"
@@ -65,7 +74,7 @@ const Header = ({ items = [], onClickCross, briefCase }) => {
               ({priceThen ? growth(priceNow, priceThen, 2) : 0}
               %)
             </span>
-          </p>
+          </div>
         </div>
       </header>
       <ModalBriefcase
@@ -78,7 +87,7 @@ const Header = ({ items = [], onClickCross, briefCase }) => {
   );
 };
 
-const TopCrypto = ({ item }) => {
+const TopCrypto = ({ item }: { item: Asset }) => {
   return (
     <li className="crypto__item">
       <a href="/" className="crypto__link">
@@ -91,9 +100,7 @@ const TopCrypto = ({ item }) => {
         />
         <div className="crypto__border">
           <span className="crypto__symbol">{item.symbol}</span>
-          <span className="crypto__price">
-            {<Price id={item.id} fix={2} />}$
-          </span>
+          <span className="crypto__price">{<Price id={item.id} />}$</span>
         </div>
       </a>
     </li>

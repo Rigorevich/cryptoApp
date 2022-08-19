@@ -1,7 +1,9 @@
 import React from "react";
 
-function useLocalStorage(key, initialValue) {
-  const [storedValue, setStoredValue] = React.useState(() => {
+type SetValue<T> = React.Dispatch<React.SetStateAction<T>>;
+
+function useLocalStorage<T>(key: string, initialValue: T): [T, SetValue<T>] {
+  const [storedValue, setStoredValue] = React.useState<T>(() => {
     if (typeof window === "undefined") {
       return initialValue;
     }
@@ -13,7 +15,8 @@ function useLocalStorage(key, initialValue) {
       return initialValue;
     }
   });
-  const setValue = (value) => {
+
+  const setValue: SetValue<T> = (value) => {
     try {
       const valueToStore =
         value instanceof Function ? value(storedValue) : value;

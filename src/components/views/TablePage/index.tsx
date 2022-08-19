@@ -3,10 +3,19 @@ import "./TablePage.scss";
 import usePagination from "../../../hooks/usePagination";
 import HeaderTable from "./HeaderTable";
 import Card from "./Card";
+import { Asset } from "../../../models";
 
 const contentPerPage = 20;
 
-const Table = ({ items, onClickCard, onClickButton }) => {
+const Table = ({
+  items,
+  onClickCard,
+  onClickButton,
+}: {
+  items: Asset[];
+  onClickCard: Function;
+  onClickButton: Function;
+}) => {
   const {
     firstContentIndex,
     lastContentIndex,

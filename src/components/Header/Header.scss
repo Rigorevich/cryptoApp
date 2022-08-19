@@ -76,4 +76,9 @@
   .briefcase {
     flex-direction: column;
   }
+  .briefcase__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }

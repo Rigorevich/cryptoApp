@@ -1,12 +1,18 @@
 import React from "react";
 
-const usePagination = ({ contentPerPage, count }) => {
+const usePagination = ({
+  contentPerPage,
+  count,
+}: {
+  contentPerPage: number;
+  count: number;
+}) => {
   const [page, setPage] = React.useState(1);
   const pageCount = Math.ceil(count / contentPerPage);
   const lastContentIndex = page * contentPerPage;
   const firstContentIndex = lastContentIndex - contentPerPage;
 
-  const changePage = (direction) => {
+  const changePage = (direction: boolean) => {
     setPage((state) => {
       if (direction) {
         if (state === pageCount) {

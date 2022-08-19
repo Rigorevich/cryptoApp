@@ -1,9 +1,9 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux/es/exports";
-import { fetchAssets, updatePrices } from "../store/actions";
+import { fetchAssets, updatePrices } from "../store/assets/actions";
+import { useAppDispatch, useAppSelector } from "../store";
 
 const useSocket = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     dispatch(fetchAssets());
@@ -27,7 +27,7 @@ const useSocket = () => {
     };
   }, [dispatch]);
 
-  return useSelector((state) => state.assets.items);
+  return useAppSelector((state) => state.assets.items);
 };
 
 export default useSocket;
