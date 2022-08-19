@@ -22,6 +22,10 @@ export const fixedNumber = function (str, fixed) {
   return Number(str).toFixed(fixed);
 };
 
+export const growth = function (priceNow, priceThen, fix) {
+  return (((priceNow - priceThen) / priceThen) * 100).toFixed(fix);
+};
+
 export const todayDate = function () {
   const today = new Date(),
     day = String(today.getDate()).padStart(2, "0"),
