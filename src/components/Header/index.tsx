@@ -29,7 +29,7 @@ const Header = ({
         0
       )
     );
-  }, [prices]);
+  });
 
   React.useEffect(() => {
     setPriceThen(
@@ -38,6 +38,7 @@ const Header = ({
         0
       )
     );
+    return () => {};
   }, [briefCase]);
 
   return (
