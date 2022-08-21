@@ -13,45 +13,6 @@ enum MonthList {
   December,
 }
 
-export const fixedNumber = function (str: string, fixed: number) {
-  return Number(str).toFixed(fixed);
-};
-
-export const growth = function (
-  priceNow: number,
-  priceThen: number,
-  fix: number
-) {
-  return (((priceNow - priceThen) / priceThen) * 100).toFixed(fix);
-};
-
-export const todayDate = function () {
-  const today = new Date(),
-    day = String(today.getDate()).padStart(2, "0"),
-    year = today.getFullYear();
-  let month = String(today.getMonth() + 1).padStart(2, "0");
-
-  return `${day} ${MonthList[Number(month) - 1]} ${year}`;
-};
-
-export const abbreviateNumber = function (num: number, fixed = 0) {
-  if (num === null) {
-    return null;
-  }
-  if (num === 0) {
-    return "0";
-  }
-  let b = num.toPrecision(2).split("e"),
-    k =
-      b.length === 1 ? 0 : Math.floor(Math.min(Number(b[1].slice(1)), 14) / 3),
-    c =
-      k < 1
-        ? num.toFixed(fixed)
-        : (num / Math.pow(10, k * 3)).toFixed(1 + fixed),
-    d = Number(c) < 0 ? c : Math.abs(Number(c));
-  return d + ["", "k", "m", "b", "t"][k];
-};
-
 export const labels = [
   "10pm",
   "11pm",
@@ -80,3 +41,45 @@ export const labels = [
   "10pm",
   "11pm",
 ];
+
+export const fixedNumber = function (str: string, fixed: number) {
+  return Number(str).toFixed(fixed);
+};
+
+export const growth = function (
+  priceNow: number,
+  priceThen: number,
+  fix: number
+) {
+  return (((priceNow - priceThen) / priceThen) * 100).toFixed(fix);
+};
+
+export const todayDate = function () {
+  const today = new Date(),
+    day = String(today.getDate()).padStart(2, "0"),
+    year = today.getFullYear();
+  let month = String(today.getMonth() + 1).padStart(2, "0");
+
+  return `${day} ${MonthList[Number(month) - 1]} ${year}`;
+};
+
+export const abbreviateNumber = function (num: number = 0) {
+  let number: any = num;
+  const decPlaces = 10;
+  const suffix = ["k", "m", "b", "t"];
+
+  for (let i = suffix.length - 1; i >= 0; i--) {
+    let size = Math.pow(10, (i + 1) * 3);
+    if (size <= number) {
+      number = Math.round((number * decPlaces) / size) / decPlaces;
+      if (number == 1000 && i < suffix.length - 1) {
+        number = 1;
+        i++;
+      }
+      number += suffix[i];
+      break;
+    }
+  }
+
+  return number;
+};

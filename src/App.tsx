@@ -6,6 +6,7 @@ import CryptoInfo from "./components/views/CryptoInfo";
 import { Routes, Route } from "react-router-dom";
 import { Asset } from "./models";
 import useLocalStorage from "./hooks/useLocalStorage";
+import { useAppSelector } from "./store";
 
 function App() {
   const [briefCase, setBriefCase] = useLocalStorage<Asset[]>("briefcase", []);

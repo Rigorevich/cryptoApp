@@ -10,5 +10,5 @@ export interface Asset {
   priceUsd: string;
   changePercent24Hr: string;
   vwap24Hr: string;
-  value: string;
+  value?: string;
 }
