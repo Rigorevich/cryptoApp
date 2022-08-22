@@ -6,7 +6,6 @@ import CryptoInfo from "./components/views/CryptoInfo";
 import { Routes, Route } from "react-router-dom";
 import { Asset } from "./models";
 import useLocalStorage from "./hooks/useLocalStorage";
-import { useAppSelector } from "./store";
 
 function App() {
   const [briefCase, setBriefCase] = useLocalStorage<Asset[]>("briefcase", []);
@@ -14,9 +13,9 @@ function App() {
     "cryptoObj",
     {} as Asset
   );
-  const items = useSocket();
+  const items: Asset[] = useSocket();
 
-  function checkBriefcase(obj: Asset) {
+  function checkBriefcase(obj: Asset): void {
     briefCase.some((item) => item.id === obj.id)
       ? setBriefCase((prev) =>
           [...prev].map((item) =>
@@ -28,7 +27,7 @@ function App() {
       : setBriefCase((prev) => [...prev, obj]);
   }
 
-  function deleteCard(obj: Asset) {
+  function deleteCard(obj: Asset): void {
     setBriefCase((prev) => [...prev].filter((item) => item.id !== obj.id));
   }
 

@@ -85,6 +85,11 @@
   padding: 5px;
   cursor: pointer;
   opacity: 0.8;
+  transition: background 0.2s ease-in-out;
+
+  &:hover {
+    background: #dbdbdb;
+  }
 }
 
 .modal__data {
@@ -92,13 +97,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
-
-  .modal__input {
-    padding: 5px;
-    border: 1px solid #bebebe;
-    border-radius: 10px;
-  }
 
   .modal__button {
     margin-top: 25px;
@@ -127,7 +125,12 @@
   }
 }
 
-
+.modal__input {
+  padding: 5px;
+  width: 160px;
+  border: 1px solid #bebebe;
+  border-radius: 10px;
+}
 
 @keyframes appear {
   from {

@@ -10,19 +10,21 @@ const Card = ({
   item,
   onClickCard,
   onClickButton,
+  hideHint,
 }: {
   item: Asset;
   onClickCard: Function;
   onClickButton: Function;
+  hideHint: Function;
 }) => {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
-  function onBtn(event: { preventDefault: () => void }) {
+  function onBtn(event: { preventDefault: () => void }): void {
     event.preventDefault();
     setIsOpen(true);
   }
 
-  function onCard() {
+  function onCard(): void {
     onClickCard(item);
   }
 
@@ -49,7 +51,11 @@ const Card = ({
           <div className="body__col">
             ${abbreviateNumber(Number(item.marketCapUsd))}
           </div>
-          <div className="body__col">${fixedNumber(item.vwap24Hr, 3)}</div>
+          <div className="body__col">
+            {fixedNumber(item.vwap24Hr, 5)
+              ? `$${fixedNumber(item.vwap24Hr, 5)}`
+              : "-"}
+          </div>
           <div className="body__col">
             {abbreviateNumber(Number(item.supply))}
           </div>
@@ -83,6 +89,7 @@ const Card = ({
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         onClickButton={onClickButton}
+        hideHint={hideHint}
       />
     </>
   );

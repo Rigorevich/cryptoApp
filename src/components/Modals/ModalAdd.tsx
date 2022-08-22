@@ -9,18 +9,27 @@ const ModalAdd = ({
   isOpen = false,
   onClose,
   onClickButton,
+  hideHint,
 }: {
   item: Asset;
   isOpen: boolean;
   onClose: Function;
   onClickButton: Function;
+  hideHint: Function;
 }) => {
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState<string>("");
 
-  function onBtn() {
+  function onBtn(): void {
     if (Number(value)) {
-      onClickButton({ ...item, value });
+      if (Number(value) >= 0) onClickButton({ ...item, value });
       onClose();
+      hideHint(Number(value) < 0);
+    }
+  }
+
+  function inputValidation(event: React.ChangeEvent<HTMLInputElement>): void {
+    if (value.length <= 4) {
+      setValue(event.target.value);
     }
   }
 
@@ -70,7 +79,7 @@ const ModalAdd = ({
                 placeholder="Write here..."
                 type="number"
                 min="0"
-                onChange={(event) => setValue(event.target.value)}
+                onChange={inputValidation}
                 value={value}
               />
               <button type="submit" className="modal__button" onClick={onBtn}>

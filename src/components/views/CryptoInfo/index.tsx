@@ -10,8 +10,9 @@ import {
 } from "../../../utils/utils";
 import { Line } from "react-chartjs-2";
 import ModalAdd from "../../Modals/ModalAdd";
-import { Asset } from "../../../models";
+import { Asset, PriceAsset } from "../../../models";
 import { Chart, registerables } from "chart.js";
+import { toast, ToastContainer } from "react-toastify";
 
 Chart.register(...registerables);
 
@@ -22,19 +23,54 @@ const CryptoInfo = ({
   item: Asset;
   onClickButton: Function;
 }) => {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const { response: cryptoHistory, isLoading } = useAxios({
       url: `https://api.coincap.io/v2/assets/${item.id}/history?interval=h1`,
     }),
-    prices: Array<string> = [];
-  if (!isLoading && cryptoHistory) {
-    cryptoHistory.data.slice(0, 26).forEach((obj: { priceUsd: string }) => {
+    prices: string[] = [];
+
+  function hideHint(err: boolean) {
+    if (err) {
+      toast.error("You can not add negative numbers of coins!", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      toast.success("Coins has been successfully added!", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }
+
+  if (!isLoading) {
+    cryptoHistory?.data.slice(0, 26).forEach((obj: PriceAsset) => {
       prices.push(obj.priceUsd);
     });
   }
 
   return (
     <>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={3000}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div className="crypto_coin">
         <div className="crypto__info">
           <img
@@ -54,7 +90,10 @@ const CryptoInfo = ({
                 MARKET CUP: ${abbreviateNumber(Number(item.marketCapUsd))}
               </span>
               <span className="prices__low">
-                VWAP(24hr): ${fixedNumber(item.vwap24Hr, 3)}
+                VWAP(24hr):{" "}
+                {fixedNumber(item.vwap24Hr, 5)
+                  ? `$${fixedNumber(item.vwap24Hr, 5)}`
+                  : "-"}
               </span>
             </div>
           </div>
@@ -103,6 +142,7 @@ const CryptoInfo = ({
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         onClickButton={onClickButton}
+        hideHint={hideHint}
       />
     </>
   );

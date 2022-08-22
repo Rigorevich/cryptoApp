@@ -43,7 +43,7 @@ export const labels = [
 ];
 
 export const fixedNumber = function (str: string, fixed: number) {
-  return Number(str).toFixed(fixed);
+  return Number(str) ? +(+Number(str)).toFixed(fixed) : 0;
 };
 
 export const growth = function (
@@ -64,7 +64,8 @@ export const todayDate = function () {
 };
 
 export const abbreviateNumber = function (num: number = 0) {
-  let number: any = num;
+  let number: number = num;
+  let result: string = "";
   const decPlaces = 10;
   const suffix = ["k", "m", "b", "t"];
 
@@ -72,14 +73,15 @@ export const abbreviateNumber = function (num: number = 0) {
     let size = Math.pow(10, (i + 1) * 3);
     if (size <= number) {
       number = Math.round((number * decPlaces) / size) / decPlaces;
-      if (number == 1000 && i < suffix.length - 1) {
+      if (number === 1000 && i < suffix.length - 1) {
         number = 1;
         i++;
       }
-      number += suffix[i];
+      result = number.toString();
+      result += suffix[i];
       break;
     }
   }
 
-  return number;
+  return result;
 };

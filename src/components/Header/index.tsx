@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Header.scss";
 import { Price } from "../Price";
 import ModalBriefcase from "../Modals/ModalBriefcase";
-import { growth } from "../../utils/utils";
+import { fixedNumber, growth } from "../../utils/utils";
 import { Asset } from "../../models";
 import { useAppSelector } from "../../store";
 
@@ -16,7 +16,7 @@ const Header = ({
   briefCase: Asset[];
 }) => {
   const prices = useAppSelector((state) => state.assets.prices);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [priceThen, setPriceThen] = useState<number>(
     briefCase.reduce((acc, item) => acc + Number(item.priceUsd), 0)
   );
@@ -29,7 +29,7 @@ const Header = ({
         0
       )
     );
-  });
+  }, [briefCase, prices]);
 
   React.useEffect(() => {
     setPriceThen(
@@ -58,7 +58,9 @@ const Header = ({
             className="briefcase__logo"
           />
           <div className="briefcase__info">
-            <span className="briefcase__price">{priceNow.toFixed(3)} USD</span>
+            <span className="briefcase__price">
+              {fixedNumber(priceNow.toString(), 3)} USD
+            </span>
             <span
               className="briefcase__difference"
               style={{
@@ -69,7 +71,7 @@ const Header = ({
                 }`,
               }}
             >
-              {(priceNow - priceThen).toFixed(3)}$
+              {fixedNumber((priceNow - priceThen).toString(), 3)}$
             </span>
             <span className="briefcase__change">
               ({priceThen ? growth(priceNow, priceThen, 2) : 0}
@@ -91,7 +93,7 @@ const Header = ({
 const TopCrypto = ({ item }: { item: Asset }) => {
   return (
     <li className="crypto__item">
-      <a href="#" className="crypto__link">
+      <div className="crypto__block">
         <img
           height={30}
           width={30}
@@ -103,7 +105,7 @@ const TopCrypto = ({ item }: { item: Asset }) => {
           <span className="crypto__symbol">{item.symbol}</span>
           <span className="crypto__price">{<Price id={item.id} />}$</span>
         </div>
-      </a>
+      </div>
     </li>
   );
 };

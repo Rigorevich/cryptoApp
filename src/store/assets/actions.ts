@@ -1,12 +1,12 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { Asset } from "../../models";
 
-const ASSETS_URL = "https://api.coincap.io/v2/assets";
+const ASSETS_URL: string = "https://api.coincap.io/v2/assets";
 
 export const fetchAssets = createAsyncThunk("assets/fetch", async () => {
-  const url = new URL(ASSETS_URL);
+  const url: URL = new URL(ASSETS_URL);
 
-  const response = await fetch(url.toString());
+  const response: Response = await fetch(url.toString());
 
   const { data } = (await response.json()) as { data: Asset[] };
 
